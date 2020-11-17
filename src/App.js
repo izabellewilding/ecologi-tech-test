@@ -21,23 +21,37 @@ function App() {
   if (error) return "An error has occurred: " + error.message;
 
   //order purchases by date: https://stackoverflow.com/questions/8837454/sort-array-of-objects-by-single-key-with-date-value
-  const orderedByDate = data.data.sort(function (a, b) {
+  const orderedByDay = data.data.sort(function (a, b) {
     return new Date(a.createdAt) - new Date(b.createdAt);
   });
 
-  console.warn("ordred by date", orderedByDate);
-
-  //group array of ordered purchases by date (createdAt)
-  const groupedByDate = groupBy(orderedByDate, (item) => {
+  //groups an array of ordered purchases by date (createdAt)
+  //returns an object with arrays of objects
+  const groupedByDay = groupBy(orderedByDay, (item) => {
     return item.createdAt.split("T")[0];
   });
+
+  //add total purchases per day and return new object from the Map
+  const totalPurchasesPerDay = Object.entries(groupedByDay).map(
+    ([date, purchases]) => {
+      const newPurchaseObj = {
+        date: date,
+        trees: purchases
+          .filter((purchases) => typeof purchases.value === "number")
+          .reduce((acc, purchases) => acc + purchases.value, 0),
+      };
+      return newPurchaseObj;
+    }
+  );
+
+  console.warn("total purchases per day ", totalPurchasesPerDay);
 
   return (
     <ReactQueryCacheProvider queryCache={queryChache}>
       <Loading loading={isLoading} />
       <div className="App">
         <Header></Header>
-        <Chart />
+        <Chart treeData={totalPurchasesPerDay} />
       </div>
     </ReactQueryCacheProvider>
   );
