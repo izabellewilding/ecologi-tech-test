@@ -88,8 +88,6 @@ function App() {
     }
   );
 
-  console.warn("months", totalPurchasesPerMonth);
-
   return (
     <ReactQueryCacheProvider queryCache={queryChache}>
       <Header>
