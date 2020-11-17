@@ -1,8 +1,14 @@
-import "./App.css";
-import { useState } from "react";
 import { useQuery, QueryCache, ReactQueryCacheProvider } from "react-query";
 import Loading from "./components/Loading";
+import Chart from "./components/Chart";
+import styled from "styled-components";
 
+const Header = styled.header`
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+`;
 const queryChache = new QueryCache();
 
 function App() {
@@ -14,11 +20,14 @@ function App() {
 
   if (error) return "An error has occurred: " + error.message;
 
+  console.warn("data", data);
+
   return (
     <ReactQueryCacheProvider queryCache={queryChache}>
       <Loading loading={isLoading} />
       <div className="App">
-        <header></header>
+        <Header></Header>
+        <Chart />
       </div>
     </ReactQueryCacheProvider>
   );
