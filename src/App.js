@@ -3,13 +3,34 @@ import Loading from "./components/Loading";
 import Chart from "./components/Chart";
 import styled from "styled-components";
 import groupBy from "lodash.groupby";
+import { ReactComponent as BrandLogo } from "./assets/ecologi.svg";
+
+const AppContainer = styled.div`
+  height: 100%;
+  width: 100%;
+
+  background-color: #e8e4df;
+`;
 
 const Header = styled.header`
-  height: 5rem;
+  position: fixed;
   display: flex;
   align-items: center;
+
+  width: 100%;
+  height: 3rem;
   padding: 1rem;
+  background-color: #03080a;
 `;
+
+const HeaderOffset = styled.div`
+  padding-top: 5rem;
+`;
+
+const Logo = styled(BrandLogo)`
+  height: 51px;
+`;
+
 const queryChache = new QueryCache();
 
 function App() {
@@ -48,11 +69,14 @@ function App() {
 
   return (
     <ReactQueryCacheProvider queryCache={queryChache}>
-      <Loading loading={isLoading} />
-      <div className="App">
-        <Header></Header>
+      <AppContainer>
+        {isLoading && <Loading loading={isLoading} />}
+        <Header>
+          <Logo />
+        </Header>
+        <HeaderOffset />
         <Chart treeData={totalPurchasesPerDay} />
-      </div>
+      </AppContainer>
     </ReactQueryCacheProvider>
   );
 }
