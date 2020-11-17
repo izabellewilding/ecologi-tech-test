@@ -4,7 +4,7 @@ Create a chart displaying the number of trees planted per day since launch. Bonu
 
 ## Built With
 
-* [React](https://reactjs.org/) -  
+* [React](https://reactjs.org/)  
 * [React-Spinner](https://www.npmjs.com/package/react-spinners)
 * [React Query](https://react-query.tanstack.com/)
 * [Recharts](https://recharts.org/en-US/exampless)
@@ -23,26 +23,32 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Features 
 
-# Loading Indicator 
-# Filter by day or month 
-# Animated chart with Recharts 
-# Styled-Components styling 
+### Loading Indicator 
+### Filter by day or month 
+### Animated chart with Recharts 
+### Styled-Components styling 
 
 
 ## Things to Note
 
 Links to articles and stack overflow posts I have used are added as comments into the code.
 
-Some of the values in the data must be strings. When added up, some of the total values for some days were returing as giant strings rather than numbers, which didn't work with the chart so I have filtered only number types.
+Some of the values in the data must be strings. When added up, some of the total values for some days were returing as giant strings rather than numbers, which didn't work with the chart so I have filtered only number types. See image:
 
-## Potential Improvements
+![string-data](/public/strange-data.JPG)
 
+
+## Improvements
 
 App.js code (styles, API call, & data handling) could potentially be separated out into separate files for better readability.
 
 The function that returns the day/month total could definitely be minified or combined into one function but I don't have the time 
 
 I would also add functionality to filter by a specific month
+
+## API Improvements 
+
+Have the server return the date of purchase and time of purchase separately to minimise the amount of data converting required 
 
 
 
