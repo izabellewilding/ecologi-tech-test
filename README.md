@@ -33,7 +33,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 Links to articles and stack overflow posts I have used are added as comments into the code.
 
-Some of the values in the data must be strings. When added up, some of the total values for some days were returing as giant strings rather than numbers, which didn't work with the chart so I have filtered only number types. See image:
+I think some of the values in the data must be strings...when added up, the total values for some days return as giant strings rather than numbers, which didn't work with the chart so I have filtered only number types. See image:
 
 ![string-data](/public/strange-data.JPG)
 
@@ -42,9 +42,11 @@ Some of the values in the data must be strings. When added up, some of the total
 
 App.js code (styles, API call, & data handling) could potentially be separated out into separate files for better readability.
 
-The function that returns the day/month total could definitely be minified or combined into one function but I don't have the time 
+The function that returns the day/month total could definitely be minified or combined into one function
 
-I would also add functionality to filter by a specific month
+I would add functionality to filter by a specific month
+
+Add tests with React Testing Library 
 
 ## API Improvements 
 
