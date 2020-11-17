@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   LineChart,
   Line,
@@ -11,28 +11,39 @@ import {
 import styled from "styled-components";
 
 const ChartContainer = styled.div`
-  margin: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 14vh 5vh 10vh 5vh;
 `;
 
 const Title = styled.h1`
-  color: #0c9e77;
+  font-family: Optima, sans-serif;
+  font-size: 1.7rem;
+  font-weight: normal;
+  color: black;
 `;
 
-export default function Chart({ treeData }) {
+export default function Chart({ dailyTreeData, monthlyTreeData }) {
+  const [perMonth, setPerMonth] = useState(false);
+
   return (
     <ChartContainer>
-      <Title>Trees Planted Per Day Since Launch</Title>
+      <Title>Trees Planted Since Launch</Title>
+      <button onClick={() => setPerMonth(!perMonth)}>
+        {perMonth ? "Per Day" : " Per Month"}
+      </button>
       <LineChart
         width={900}
         height={400}
-        data={treeData}
+        data={perMonth ? monthlyTreeData : dailyTreeData}
         margin={{
           top: 5,
           right: 30,
           left: 20,
           bottom: 5,
         }}
-        data={treeData}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" />

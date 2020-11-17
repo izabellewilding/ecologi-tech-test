@@ -3,7 +3,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import styled from "styled-components";
 
 const LoadingContainer = styled.div`
-  height: 50px;
+  height: 100vh;
   width: 100vw;
   z-index: 1;
   display: flex;
@@ -15,12 +15,8 @@ const LoadingContainer = styled.div`
 const Loading = ({ loading }) => {
   return (
     <LoadingContainer>
-      <ClipLoader
-        //   css={override}
-        size={150}
-        color={"#123abc"}
-        loading={loading}
-      />
+      <ClipLoader size={80} color={"#123abc"} loading={loading} />
+      <p>Loading...</p>
     </LoadingContainer>
   );
 };
