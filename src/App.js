@@ -1,15 +1,19 @@
-import { useQuery, QueryCache, ReactQueryCacheProvider } from "react-query";
-import Loading from "./components/Loading";
-import Chart from "./components/Chart";
+import { useState, useEffect } from "react";
+import { ReactComponent as BrandLogo } from "./assets/ecologi.svg";
 import styled from "styled-components";
 import groupBy from "lodash.groupby";
-import { ReactComponent as BrandLogo } from "./assets/ecologi.svg";
+
+import Chart from "./components/Chart";
+import Loading from "./components/Loading";
+import TabBar from "./components/Tab";
+import "./vars.css";
 
 const AppContainer = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
 
   background-color: #e8e4df;
 `;
@@ -33,18 +37,30 @@ const Logo = styled(BrandLogo)`
   height: 51px;
 `;
 
-const queryChache = new QueryCache();
-
 function App() {
-  const { isLoading, error, data } = useQuery("repoData", () =>
-    fetch("https://public.ecologi.com/trees").then((res) => res.json())
-  );
-  if (isLoading) return <Loading loading={isLoading} />;
-  if (error) return "An error has occurred: " + error.message;
+  const [treeData, setData] = useState();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function getTreeData() {
+      setLoading(true);
+      try {
+        const response = await fetch("https://public.ecologi.com/trees");
+        const data = await response.json();
+        setData(data);
+        setLoading(false);
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+    getTreeData();
+  }, []);
+
+  if (loading || !treeData) return <Loading loading={loading} />;
 
   //order purchases array by createdAt date:
   //resource: https://stackoverflow.com/questions/8837454/sort-array-of-objects-by-single-key-with-date-value
-  const orderedByDay = data.data.sort(function (a, b) {
+  const orderedByDay = treeData.data.sort(function (a, b) {
     return new Date(a.createdAt) - new Date(b.createdAt);
   });
 
@@ -89,18 +105,21 @@ function App() {
   );
 
   return (
-    <ReactQueryCacheProvider queryCache={queryChache}>
+    <>
       <Header>
         <Logo />
       </Header>
       <AppContainer>
         <HeaderOffset />
-        <Chart
-          dailyTreeData={totalPurchasesPerDay}
-          monthlyTreeData={totalPurchasesPerMonth}
-        />
+        <TabBar>
+          {/* <Chart
+            activeTab
+            dailyTreeData={totalPurchasesPerDay}
+            monthlyTreeData={totalPurchasesPerMonth}
+          /> */}
+        </TabBar>
       </AppContainer>
-    </ReactQueryCacheProvider>
+    </>
   );
 }
 

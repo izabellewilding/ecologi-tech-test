@@ -25,19 +25,22 @@ const Title = styled.h1`
   color: black;
 `;
 
-export default function Chart({ dailyTreeData, monthlyTreeData }) {
-  const [perMonth, setPerMonth] = useState(false);
+export default function Chart({ dailyTreeData, monthlyTreeData, activeTab }) {
+  console.warn("activeTab", activeTab);
+
+  const timeScale = {
+    daily: dailyTreeData,
+    monthly: monthlyTreeData,
+  };
 
   return (
     <ChartContainer>
       <Title>Trees Planted Since Launch</Title>
-      <button onClick={() => setPerMonth(!perMonth)}>
-        {perMonth ? "Per Day" : " Per Month"}
-      </button>
+
       <LineChart
         width={900}
         height={400}
-        data={perMonth ? monthlyTreeData : dailyTreeData}
+        data={timeScale[activeTab]}
         margin={{
           top: 5,
           right: 30,
