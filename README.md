@@ -16,6 +16,7 @@ Create a chart displaying the number of trees planted per day since launch. Bonu
 
 In the project directory, you can run:
 
+### `npm install`
 ### `npm run start`
 
 Runs the app in the development mode.\
