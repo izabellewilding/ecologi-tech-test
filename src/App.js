@@ -10,15 +10,13 @@ const AppContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-
   background-color: #e8e4df;
 `;
 
 const Header = styled.header`
+  align-items: center;
   position: fixed;
   display: flex;
-  align-items: center;
-
   width: 100%;
   height: 3rem;
   padding: 1rem;
@@ -36,6 +34,7 @@ const Logo = styled(BrandLogo)`
 const queryChache = new QueryCache();
 
 function App() {
+  //data fetching
   const { isLoading, error, data } = useQuery("repoData", () =>
     fetch("https://public.ecologi.com/trees").then((res) => res.json())
   );
@@ -51,6 +50,7 @@ function App() {
   //groups an array of ordered purchases by day (createdAt)
   //returns an object with arrays of objects
   //resource: https://lodash.com/docs/4.17.15#groupBy
+  //use state to switch out the filtering
   const groupedByDay = groupBy(orderedByDay, (item) => {
     return item.createdAt.split("T")[0];
   });
