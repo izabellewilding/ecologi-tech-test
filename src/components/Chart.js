@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   LineChart,
   Line,
@@ -25,22 +25,14 @@ const Title = styled.h1`
   color: black;
 `;
 
-export default function Chart({ dailyTreeData, monthlyTreeData, activeTab }) {
-  console.warn("activeTab", activeTab);
-
-  const timeScale = {
-    daily: dailyTreeData,
-    monthly: monthlyTreeData,
-  };
-
+export default function Chart({ data }) {
   return (
     <ChartContainer>
       <Title>Trees Planted Since Launch</Title>
-
       <LineChart
         width={900}
         height={400}
-        data={timeScale[activeTab]}
+        data={data}
         margin={{
           top: 5,
           right: 30,

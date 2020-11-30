@@ -25,27 +25,45 @@ const Tab = styled.div`
 `;
 const TabContent = styled.div``;
 
-const Tabs = ({ children }) => {
-  const [activeTab, setActiveTab] = useState();
-  const titles = ["Daily", "Monthly"];
+function useTabs({ tabContent }) {
+  const [activeTab, setActiveTab] = useState(tabContent[0]);
 
-  console.warn(activeTab);
-  return (
-    <Container>
+  return {
+    activeTab,
+    renderTabBar: () => (
       <TabBar>
-        {titles.map((title) => (
+        {tabContent.map((tabItem) => (
           <Tab
-            activeTab={activeTab === title}
-            key={title}
-            onClick={() => setActiveTab(title)}
+            activeTab={activeTab.id === tabItem.id}
+            key={tabItem.title}
+            onClick={() => setActiveTab(tabItem)}
           >
-            {title}
+            {tabItem.title}
           </Tab>
         ))}
       </TabBar>
-      <TabContent>{activeTab}</TabContent>
+    ),
+  };
+}
+
+export const TopTabs = (props) => {
+  const { renderTabBar, activeTab } = useTabs(props);
+
+  return (
+    <Container>
+      {renderTabBar()}
+      <TabContent>{activeTab.render()}</TabContent>
     </Container>
   );
 };
 
-export default Tabs;
+export const BottomTabs = (props) => {
+  const { renderTabBar, activeTab } = useTabs(props);
+
+  return (
+    <Container>
+      <TabContent>{activeTab.render()}</TabContent>
+      {renderTabBar()}
+    </Container>
+  );
+};

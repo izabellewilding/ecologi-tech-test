@@ -5,7 +5,7 @@ import groupBy from "lodash.groupby";
 
 import Chart from "./components/Chart";
 import Loading from "./components/Loading";
-import TabBar from "./components/Tab";
+import { TopTabs, BottomTabs } from "./components/Tab";
 import "./vars.css";
 
 const AppContainer = styled.div`
@@ -111,13 +111,42 @@ function App() {
       </Header>
       <AppContainer>
         <HeaderOffset />
-        <TabBar>
-          {/* <Chart
-            activeTab
-            dailyTreeData={totalPurchasesPerDay}
-            monthlyTreeData={totalPurchasesPerMonth}
-          /> */}
-        </TabBar>
+        <TopTabs
+          tabContent={[
+            {
+              id: "monthly",
+              title: "Monthly",
+              render: () => {
+                return <Chart data={totalPurchasesPerMonth} />;
+              },
+            },
+            {
+              id: "daily",
+              title: "Daily",
+              render: () => {
+                return <Chart data={totalPurchasesPerDay} />;
+              },
+            },
+          ]}
+        />
+        <BottomTabs
+          tabContent={[
+            {
+              id: "monthly",
+              title: "Monthly",
+              render: () => {
+                return <Chart data={totalPurchasesPerMonth} />;
+              },
+            },
+            {
+              id: "daily",
+              title: "Daily",
+              render: () => {
+                return <Chart data={totalPurchasesPerDay} />;
+              },
+            },
+          ]}
+        />
       </AppContainer>
     </>
   );
