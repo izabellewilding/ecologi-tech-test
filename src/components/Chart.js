@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   LineChart,
   Line,
@@ -25,19 +25,14 @@ const Title = styled.h1`
   color: black;
 `;
 
-export default function Chart({ dailyTreeData, monthlyTreeData }) {
-  const [perMonth, setPerMonth] = useState(false);
-
+export default function Chart({ data }) {
   return (
     <ChartContainer>
       <Title>Trees Planted Since Launch</Title>
-      <button onClick={() => setPerMonth(!perMonth)}>
-        {perMonth ? "Per Day" : " Per Month"}
-      </button>
       <LineChart
         width={900}
         height={400}
-        data={perMonth ? monthlyTreeData : dailyTreeData}
+        data={data}
         margin={{
           top: 5,
           right: 30,
